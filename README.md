@@ -72,3 +72,8 @@ This is a demonstration project. In production, you would need to set up proper 
 ## Developer
 
 Muhammad Usman Mateen
+
+## Updates
+
+- Fixed API backlinks
+- Updated README with Docker commands
