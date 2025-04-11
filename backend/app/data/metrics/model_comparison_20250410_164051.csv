@@ -1,0 +1,7 @@
+Metric,XGBoost,LSTM
+Training RMSE,9.5641,12.4521
+Testing RMSE,9.8742,28.8945
+Training MAE,7.6294,9.8751
+Testing MAE,7.8945,23.2253
+Training R²,0.8903,0.7842
+Testing R²,0.8721,-0.0006

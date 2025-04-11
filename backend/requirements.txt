@@ -1,0 +1,16 @@
+fastapi[all]
+uvicorn
+python-dotenv
+requests
+passlib[bcrypt]
+python-jose
+sqlalchemy
+psycopg2
+supabase
+numpy
+pandas
+joblib
+scikit-learn
+xgboost
+tensorflow
+torch
