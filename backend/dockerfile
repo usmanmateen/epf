@@ -1,5 +1,5 @@
-# Use official Python image
-FROM python:3.10
+# Use official Python slim image to reduce size
+FROM python:3.10-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -7,8 +7,10 @@ WORKDIR /app
 # Copy the requirements file first (leveraging Docker caching)
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies with optimizations for space
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Copy all backend code, including models
 COPY . /app

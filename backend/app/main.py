@@ -144,9 +144,20 @@ async def test_api_key(name: str = Query(..., description="API Service Name"), k
         raise HTTPException(status_code=500, detail=str(e))
 
 
-xgb_model = joblib.load("app/models/xgboost_model.pkl")
-lstm_model = load_model("app/models/lstm_model.keras")
-scaler = joblib.load("app/models/scaler.pkl")
+# Initialize models as None for lazy loading
+xgb_model = None
+lstm_model = None 
+scaler = None
+
+# Lazy loading function for models
+def load_models_if_needed():
+    global xgb_model, lstm_model, scaler
+    if xgb_model is None:
+        print("[INFO] Loading models for the first time...")
+        xgb_model = joblib.load("app/models/xgboost_model.pkl")
+        lstm_model = load_model("app/models/lstm_model.keras")
+        scaler = joblib.load("app/models/scaler.pkl")
+        print("[INFO] Models loaded successfully")
 
 # Request Model
 class PredictionRequest(BaseModel):
@@ -156,6 +167,9 @@ class PredictionRequest(BaseModel):
 @app.post("/predict")
 async def predict_energy_price(request: PredictionRequest):
     try:
+        # Load models on first request
+        load_models_if_needed()
+        
         X_input = np.array(request.features).reshape(1, -1)
         X_scaled = scaler.transform(X_input)
 

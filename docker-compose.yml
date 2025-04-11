@@ -2,13 +2,21 @@ version: "3.8"
 
 services:
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      # Use buildkit for more efficient builds
+      dockerfile: dockerfile
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
     environment:
       - ENV=production
+    # Add this to avoid TensorFlow CUDA/cuDNN errors
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   frontend:
     build: ./frontend

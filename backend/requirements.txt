@@ -11,5 +11,6 @@ pandas
 joblib
 scikit-learn
 xgboost
-tensorflow
-torch
+# Choose only one of these deep learning frameworks, not both:
+tensorflow-cpu==2.16.1  # CPU-only version, much smaller
+# torch==2.1.0 # Uncomment if needed instead of TensorFlow
