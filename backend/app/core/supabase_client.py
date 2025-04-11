@@ -1,10 +1,16 @@
-from supabase import create_client, Client
-import os
-from dotenv import load_dotenv
+# Placeholder file to avoid import errors
+# Supabase functionality has been removed
 
-load_dotenv()  # Load environment variables
+# Mock object that does nothing
+class DummySupabase:
+    def table(self, _):
+        return self
+    
+    def insert(self, _):
+        return self
+    
+    def execute(self):
+        return {"data": [], "status": "not_implemented"}
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+# Provide a dummy instance for compatibility
+supabase = DummySupabase()

@@ -3,7 +3,7 @@ import requests
 from datetime import datetime, timezone
 from dotenv import load_dotenv
 import os
-from app.core.supabase_client import supabase
+from app.core.supabase_client import supabase  # Using dummy client
 import asyncio
 
 
@@ -106,37 +106,32 @@ async def store_weather_data():
     # Check if weather data contains all required fields
     if not weather or "temperature" not in weather:
         print("[ERROR] Weather API returned invalid data:", weather)
-        return {"error": "Weather data fetch failed. Not storing in Supabase."}
+        return {"error": "Weather data fetch failed."}
 
     timestamp = datetime.now(timezone.utc).isoformat()
 
-    print("[DEBUG] Storing data:", {
-        "timestamp": timestamp,
-        "temperature": weather["temperature"],
-        "wind_speed": weather["wind_speed"],
-        "humidity": weather["humidity"],
-        "cloud_coverage": weather["cloud_cover"],
-        "solar_generation": weather["solar_generation"]
-    })
-
-    response = supabase.table("weather_solar_data").insert({
+    # We're not storing data anymore, just return the current values
+    data = {
         "timestamp": timestamp,
         "temperature": weather["temperature"],
         "wind_speed": weather["wind_speed"],
         "humidity": weather["humidity"],
         "cloud_coverage": weather["cloud_cover"],
         "solar_generation": solar
-    }).execute()
-
-    print("[DEBUG] Supabase Response:", response)
-    return {"message": "Weather Data Stored", "response": response}
+    }
+    
+    print("[INFO] Weather data processed:", data)
+    return {"message": "Weather data processed successfully", "data": data}
 
 
 async def schedule_weather_updates(interval_seconds=900):  # 900 seconds = 15 minutes
-    """Run `store_weather_data()` automatically every 15 minutes."""
+    """Fetch weather data automatically every 15 minutes."""
     while True:
-        print("[AUTO] Fetching and storing weather + solar data...")
-        await store_weather_data()
+        try:
+            print("[AUTO] Fetching weather + solar data...")
+            await store_weather_data()
+        except Exception as e:
+            print(f"[ERROR] Failed in scheduled weather update: {e}")
         await asyncio.sleep(interval_seconds)
 
 
