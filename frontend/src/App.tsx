@@ -164,7 +164,7 @@ useEffect(() => {
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${getStatusColor(apiStatus)} animate-pulse`} />
+              <div className={`w-3 h-3 rounded-full ${getStatusColor(apiStatus)}`} />
               <div className="flex items-center gap-2">
                 <Wifi className="w-4 h-4" />
                 <span className="text-sm font-medium">{getStatusText(apiStatus)}</span>
@@ -318,7 +318,7 @@ useEffect(() => {
                         <div className="w-24 h-2 bg-gray-700 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-emerald-400"
-                            style={{ width: `£{prediction.confidence}%` }}
+                            style={{ width: `${prediction.confidence}%` }}
                           />
                         </div>
                         <span>{prediction.confidence}%</span>

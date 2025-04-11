@@ -64,22 +64,22 @@ async def start_background_tasks():
     asyncio.create_task(schedule_weather_updates())
 
 
-# ✅ Weather Route (Unchanged)
+# Weather Route (Unchanged)
 @app.get("/weather/uk")
 def get_weather():
     return weather.get_uk_weather()
 
-# ✅ Solar Route (Unchanged)
+# Solar Route (Unchanged)
 @app.get("/solar")
 def get_solar():
     return weather.fetch_solar_generation()
 
-# ✅ Home Route (Unchanged)
+# Home Route (Unchanged)
 @app.get("/")
 def home():
     return {"message": "Energy Price Prediction API is running"}
 
-# ✅ Save API Keys to .env
+# Save API Keys to .env
 @app.post("/api/save-api-keys")
 async def save_api_keys(api_keys: list[ApiKeyModel]):
     try:
@@ -90,7 +90,7 @@ async def save_api_keys(api_keys: list[ApiKeyModel]):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# ✅ Get API Keys from .env
+# Get API Keys from .env
 @app.get("/api/get-api-keys")
 async def get_api_keys():
     try:
@@ -110,7 +110,7 @@ async def test_api_key(name: str = Query(..., description="API Service Name"), k
     Test API key by making a request to the corresponding service before saving.
     """
     try:
-        # ✅ Define API endpoints for testing
+        # Define API endpoints for testing
         api_endpoints = {
             "Weather API": f"https://api.openweathermap.org/data/2.5/weather?q=London&appid={key}",
             "News API": f"https://newsapi.org/v2/top-headlines?country=us&apiKey={key}",
@@ -119,11 +119,11 @@ async def test_api_key(name: str = Query(..., description="API Service Name"), k
 
         print(f"[DEBUG] Testing API: {name} with key: {key}")                              
 
-        # ✅ Check if API name is valid
+        # Check if API name is valid
         if name not in api_endpoints:
             return {"status": "invalid", "detail": "Invalid API name"}
 
-        # ✅ Make a request to test API key
+        # Make a request to test API key
         response = requests.get(api_endpoints[name])
 
         print(f"[DEBUG] Response Status: {response.status_code}")
@@ -131,7 +131,7 @@ async def test_api_key(name: str = Query(..., description="API Service Name"), k
         if response.status_code == 200:
             return {"status": "valid"}
 
-        # ✅ Handle API response errors properly
+        # Handle API response errors properly
         try:
             error_detail = response.json()
         except:
@@ -148,11 +148,11 @@ xgb_model = joblib.load("app/models/xgboost_model.pkl")
 lstm_model = load_model("app/models/lstm_model.keras")
 scaler = joblib.load("app/models/scaler.pkl")
 
-# ✅ Request Model
+# Request Model
 class PredictionRequest(BaseModel):
     features: list[float]
 
-# ✅ Prediction Endpoint
+# Prediction Endpoint
 @app.post("/predict")
 async def predict_energy_price(request: PredictionRequest):
     try:
@@ -175,7 +175,7 @@ async def predict_energy_price(request: PredictionRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# ✅ Real-Time Stats Endpoint
+# Real-Time Stats Endpoint
 @app.get("/stats")
 async def get_current_stats():
     """

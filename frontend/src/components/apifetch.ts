@@ -6,7 +6,7 @@ export const fetchWeatherData = async () => {
         const response = await fetch(`${BASE_URL}/weather/uk`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            mode: "cors",  // ✅ Ensure CORS mode is enabled
+            mode: "cors",  // Ensure CORS mode is enabled
         });
 
         console.log("[DEBUG] Weather Response Status:", response.status);
@@ -36,7 +36,7 @@ export const fetchSolarData = async () => {
         const response = await fetch(`${BASE_URL}/solar`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            mode: "cors",  // ✅ Ensure CORS mode is enabled
+            mode: "cors",  // Ensure CORS mode is enabled
         });
 
         console.log("[DEBUG] Solar Response Status:", response.status);

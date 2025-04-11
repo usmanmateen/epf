@@ -103,7 +103,7 @@ def fetch_solar_generation(settlement_date=None):
 async def store_weather_data():
     weather = get_uk_weather()
     solar = fetch_solar_generation()
-    # ✅ Check if weather data contains all required fields
+    # Check if weather data contains all required fields
     if not weather or "temperature" not in weather:
         print("[ERROR] Weather API returned invalid data:", weather)
         return {"error": "Weather data fetch failed. Not storing in Supabase."}

@@ -19,6 +19,16 @@ This project is configured to run in GitHub Codespaces using Docker Compose. Fol
    ```bash
    docker-compose up --build
    ```
+   
+   Alternatively, you can use:
+   ```bash
+   docker-compose up --build
+   ```
+   
+   Or run the commands separately:
+   ```bash
+   docker-compose build && docker-compose up
+   ```
 
 ## API Endpoints
 
